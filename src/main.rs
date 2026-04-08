@@ -1,7 +1,11 @@
 mod constants;
+mod paddle;
+
 use constants::*;
 
 use macroquad::prelude::*;
+
+use paddle::*;
 
 
 fn window_conf() -> Conf {
@@ -16,6 +20,7 @@ fn window_conf() -> Conf {
 
 #[macroquad::main(window_conf)]
 async fn main() {
+    let pl = Paddle::new(Side::Left);
     loop {
         // let dt = get_frame_time();   // 1. timing                                                                                                                                                                                                                                                                     
 
@@ -28,7 +33,8 @@ async fn main() {
         // 4. draw  
         clear_background(BLACK);
         // draw everything here
-        draw_rectangle(20.0, 260.0, PADDLE_WIDTH, PADDLE_HEIGHT, WHITE);
+        // draw_rectangle(20.0, 260.0, PADDLE_WIDTH, PADDLE_HEIGHT, WHITE);
+        pl.draw();
 
         next_frame().await;          // 5. present frame — always last
 
