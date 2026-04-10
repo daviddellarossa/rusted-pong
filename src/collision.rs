@@ -16,16 +16,16 @@ pub fn check_paddle_bounce(ball: &mut Ball, pl: &Paddle, pr: &Paddle) {
         if ball.rect.overlaps(&paddle.rect) {
             let paddle_center = paddle.rect.y + paddle.rect.h / 2.0;
             let ball_center = ball.rect.y + ball.rect.h / 2.0;
-            let relative_hit = (ball_center - paddle_center) / (paddle.rect.h / 2.0);
+            let relative_hit = ((ball_center - paddle_center) / (paddle.rect.h / 2.0)).clamp(-1.0, 1.0);
             let bounce_angle = relative_hit * std::f32::consts::FRAC_PI_3;
             let x_dir = match paddle.side {
-                Side::Left => -1.0_f32,
-                Side::Right => 1.0_f32,
+                Side::Left => 1.0_f32,
+                Side::Right => -1.0_f32,
             };
             ball.speed = (ball.speed + BALL_SPEED_INCREMENT).min(MAX_BALL_SPEED);
             ball.velocity.x = x_dir * ball.speed * bounce_angle.cos();
             ball.velocity.y = ball.speed * bounce_angle.sin();
-            
+             
             match paddle.side {
                 Side::Left => ball.rect.x = paddle.rect.x + paddle.rect.w + 1.0,
                 Side::Right => ball.rect.x = paddle.rect.x - ball.rect.w - 1.0,
