@@ -20,9 +20,6 @@ fn window_conf() -> Conf {
 
 #[macroquad::main(window_conf)]
 async fn main() {
-    // let mut pl = Paddle::new(Side::Left);
-    // let mut pr = Paddle::new(Side::Right);
-    // let mut ball = Ball::new();
     let mut game = Game::new();
     
     loop {
@@ -42,6 +39,5 @@ async fn main() {
         game.ball.draw();
 
         next_frame().await;          // 5. present frame — always last
-
     }
 }
